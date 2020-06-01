@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <!-- Page Title -->
+    <title>Task System</title>
+
+    <!-- add bootstrap css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <noscript>
+        <strong>We're sorry but this app doesn't work properly without JavaScript enabled. Please enable
+            it to continue.</strong>
+    </noscript>
+    <div id="app">
+        <header-component></header-component>
+        <dashboard-header-component></dashboard-header-component>
+
+        <div class="container">
+            <h1>Availability</h1>
+            <my-availability
+                v-bind:days="days"
+                v-bind:times="times"
+            >
+            </my-availability>
+        </div>
+
+    </div>
+
+
+    <script src="/js/component.js"></script>
+    <script src="/js/availability.js"></script>
+
+</body>
+
+</html>

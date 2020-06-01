@@ -1,19 +1,44 @@
 const users = require('express').Router();
-const usersController = require('../../api/controllers/UsersController');
+const usersController = require('../../../api/controllers/UsersController');
 
 // user api
-users.get('/:userId', async function (req, res) {
+users.get('/id/:userId', async function (req, res) {
 
     if (req.method === 'GET') {
         let user = await usersController.getUser(req.params.userId);
-        return res.json(user);
+
+        let response = user.get({
+            plain: true
+        })
+
+        delete response.password
+
+        return res.json(response);
     } else {
-        console.log("[UsersController.getUser] Bad request, please user GET method.");
         return res.json({
             'error': "Bad request for /users/:userId, please use GET method"
         });
     }
 
+})
+
+users.get('/all', async function (req, res) {
+
+    if (req.method === 'GET') {
+
+        let user = await usersController.all();
+
+        console.log("***************")
+        console.log(user)
+
+        return res.json(user);
+
+    } else {
+        
+        return res.json({
+            'error': "Bad request for tasks/all, please use GET method"
+        });
+    }
 })
 
 users.get('/email/:userEmail', async function (req, res) {
@@ -22,7 +47,6 @@ users.get('/email/:userEmail', async function (req, res) {
         let user = await usersController.getUserWithEmail(req.params.userEmail);
         return res.json(user);
     } else {
-        console.log("[UsersController.userEmail] Bad request, please user GET method.");
         return res.json({
             'error': "Bad request for /users/email/:userEmail, please use GET method"
         });
@@ -44,7 +68,6 @@ users.post('/create', async function (req, res) {
         return res.json(user);
 
     } else {
-        console.log("[UsersController.createUser] Bad request, please user POST method.");
         return res.json({
             'error': "Bad request for /users/create, please use POST method"
         });
@@ -74,15 +97,14 @@ users.post('/login', async function (req, res) {
         });
 
     } else {
-        console.log("[UsersController.login] Bad request, please user POST method.");
         return res.json({
-            'error': "Bad request for /login, please use POST method"
+            'error': "Bad request for users/login, please use POST method"
         });
     }
 
 })
 
-users.post('/assign', async function (req, res) {
+users.post('/assign/group', async function (req, res) {
     if (req.method === 'POST') {
 
         let data = {
@@ -91,6 +113,24 @@ users.post('/assign', async function (req, res) {
         }
 
         let user = await usersController.assignToGroup(data);
+        return res.json(user);
+
+    } else {
+        return res.json({
+            'error': "Bad request for /users/assign/group, please use POST method"
+        });
+    }
+})
+
+users.post('/assign/task', async function (req, res) {
+    if (req.method === 'POST') {
+
+        let data = {
+            user_id: 1,
+            task_id: 1
+        }
+
+        let user = await usersController.assignToTask(data);
         return res.json(user);
 
     } else {

@@ -1,6 +1,9 @@
 const Tasks = require('../models/Tasks');
 const tasks = new Tasks();
 
+const TasksGroups = require('../models/TasksGroups');
+const tasksGroups = new TasksGroups();
+
 const TasksController = {
 
     create: async function (data) {
@@ -46,6 +49,30 @@ const TasksController = {
 
     },
 
+    assignToGroup: async function(data) {
+
+        let TasksGroups = tasksGroups.Model;
+
+        try {
+
+            let tasksGroups = await TasksGroups.findOrCreate({
+                where: {
+                    task_id: data.task_id,
+                    group_id: data.group_id
+                },
+                defaults: {
+                    task_id: data.task_id,
+                    group_id: data.group_id
+                }
+            })
+
+            return tasksGroups
+
+        } catch (error) {
+            return error
+        }
+    },
+
 }
 
-module.exports = GroupsController;
+module.exports = TasksController;

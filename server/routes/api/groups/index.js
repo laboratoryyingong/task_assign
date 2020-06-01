@@ -1,5 +1,5 @@
 const groups = require('express').Router();
-const groupsController = require('../../api/controllers/GroupsController');
+const groupsController = require('../../../api/controllers/GroupsController');
 
 // Group api
 groups.post('/create', async function (req, res) {
@@ -14,9 +14,9 @@ groups.post('/create', async function (req, res) {
         return res.json(group);
 
     } else {
-        console.log("[GroupsController.create] Bad request, please user POST method.");
+
         return res.json({
-            'error': "Bad request for /group/create, please use POST method"
+            'error': "Bad request for /groups/create, please use POST method"
         });
     }
 })
@@ -28,9 +28,9 @@ groups.get('/all', async function (req, res) {
         return res.json(group);
 
     } else {
-        console.log("[GroupsController.all] Bad request, please user GET method.");
+
         return res.json({
-            'error': "Bad request for /group/all, please use GET method"
+            'error': "Bad request for /groups/all, please use GET method"
         });
     }
 })

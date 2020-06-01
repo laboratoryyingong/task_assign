@@ -51,6 +51,8 @@ app.use((error, req, res, next) => {
 //  Connect all our routes to our application
 app.use('/', routes);
 
+app.use(express.static('public'))
+
 https.createServer({ key, cert }, app).listen(PORT, () => {
     console.log(`Listening on https://localhost:${PORT}`);
 });
